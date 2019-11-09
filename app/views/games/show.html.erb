@@ -13,7 +13,7 @@
     <h2 class="mb-3">Comments</h2>
     <% @game.comments.order(:id).each do |comment| %>
       <div class="card">
-        <span class="p-2"><%= comment.content %> => <%= comment.username %></span>
+        <span class="p-2"><%= comment.content %> - <strong><%= comment.username %></strong></span>
       </div>
     <% end %>
   </div>
