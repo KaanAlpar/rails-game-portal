@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="game-title"><%= @game.title %></h1>
+  <hr>
+  <div class="game-area">
+    <!-- <span class="game-id"><%= @game.title %></span> -->
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <% content_for :page_js do  %>
+      <!-- <script><%# @game.code %></script> -->
+    <% end %>
+  </div>
+  <hr>
+  <div id="comments" class="my-5">
+    <h2 class="mb-3">Comments</h2>
+    <% @game.comments.order(:id).each do |comment| %>
+      <div class="card">
+        <span class="p-2"><%= comment.content %> => <%= comment.username %></span>
+      </div>
+    <% end %>
+  </div>
+  <div id="add-comment" class="my-5 border p-3">
+    <h3>Add comment</h3>
+    <%= simple_form_for [@game, @comment] do |f| %>
+      <%= f.input :username %>
+      <%= f.input :content %>
+      <%= f.button :submit, class: 'btn btn-secondary' %>
+    <% end %>
+  </div>
+  <%= link_to "Back", games_path, class: 'btn btn-primary' %>
+</div>
