@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-4 mb-3">
       <% game = Game.find(18) %>
-      <%= link_to game_path(game), method: :get do %>
+      <%= link_to game_path(game), method: :get, class: 'text-decoration-none' do %>
       <div class="card-trip">
         <%= image_tag game.image_url, alt: "alttext" %>
         <div class="card-trip-infos">
@@ -11,14 +11,18 @@
             <h2><%= game.title %></h2>
             <p><%= game.description %></p>
           </div>
-          <h2 class="card-trip-rating"><%= '*' * game.rating %></h2>
+          <h2 class="card-trip-rating">
+            <% game.rating.times do %>
+              <i class="fas fa-star"></i>
+            <% end %>
+          </h2>
         </div>
       </div>
       <% end %>
     </div>
     <div class="col-4 mb-3">
       <% game = Game.find(17) %>
-      <%= link_to game_path(game), method: :get do %>
+      <%= link_to game_path(game), method: :get, class: 'text-decoration-none' do %>
       <div class="card-trip">
         <%= image_tag game.image_url, alt: "alttext" %>
         <div class="card-trip-infos">
@@ -26,7 +30,11 @@
             <h2><%= game.title %></h2>
             <p><%= game.description %></p>
           </div>
-          <h2 class="card-trip-rating"><%= '*' * game.rating %></h2>
+          <h2 class="card-trip-rating">
+            <% game.rating.times do %>
+              <i class="fas fa-star"></i>
+            <% end %>
+          </h2>
         </div>
       </div>
       <% end %>
@@ -37,7 +45,7 @@
   <div class="row">
     <% @games.order(:id).reverse.each do |game| %>
       <div class="col-4 mb-3">
-        <%= link_to game_path(game), method: :get do %>
+        <%= link_to game_path(game), method: :get, class: 'text-decoration-none' do %>
         <div class="card-trip">
           <%= image_tag game.image_url, alt: "alttext" %>
           <div class="card-trip-infos">
@@ -45,7 +53,11 @@
               <h2><%= game.title %></h2>
               <p><%= game.description %></p>
             </div>
-            <h2 class="card-trip-rating"><%= '*' * game.rating %></h2>
+            <h2 class="card-trip-rating">
+            <% game.rating.times do %>
+              <i class="fas fa-star"></i>
+            <% end %>
+          </h2>
           </div>
         </div>
         <% end %>
