@@ -151,8 +151,6 @@ const brickGame = () => {
   } // end of ballBrickHandling func
 
   function ballPaddleHandling() {
-    console.log(bricksLeft);
-
     var paddleTopEdgeY = canvas.height-PADDLE_DIST_FROM_EDGE;
     var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
     var paddleLeftEdgeX = paddleX;
@@ -171,7 +169,6 @@ const brickGame = () => {
     } // ball center inside paddle
     if(bricksLeft === 0) {
       gameState = 2;
-      console.log('bricksLeft = 0');
     }
   } // end of ballPaddleHandling
 

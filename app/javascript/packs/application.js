@@ -20,6 +20,8 @@ import { pongGame } from '../components/pong_game';
 import { brickGame } from '../components/brick_game';
 import { comingSoon } from '../components/coming_soon';
 
+// TODO: After losing once the event listener lets the user to reset the game whenever canvas is clicked
+
 const gameTitleElement = document.querySelector('.game-title')
 if (gameTitleElement) {
   const gameTitle = gameTitleElement.innerText;
