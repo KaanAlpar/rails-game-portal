@@ -8,7 +8,7 @@ const brickGame = () => {
   const BRICK_H = 20;
   const BRICK_GAP = 2;
   const BRICK_COLS = 10;
-  const BRICK_ROWS = 14;
+  const BRICK_ROWS = 15;
   var brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
   var bricksLeft = 0;
 
@@ -22,6 +22,11 @@ const brickGame = () => {
   var mouseX = 0;
   var mouseY = 0;
 
+  // 0 => Menu
+  // 1 => Game
+  // 2 => Game over
+  var gameState = 0;
+
   function updateMousePos(evt) {
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
@@ -32,10 +37,10 @@ const brickGame = () => {
     paddleX = mouseX - PADDLE_WIDTH/2;
 
     // cheat / hack to test ball in any position
-    /*ballX = mouseX;
-    ballY = mouseY;
-    ballSpeedX = 4;
-    ballSpeedY = -4;*/
+    // ballX = mouseX;
+    // ballY = mouseY;
+    // ballSpeedX = 4;
+    // ballSpeedY = -4;
   }
 
   function brickReset() {
@@ -53,6 +58,7 @@ const brickGame = () => {
   window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
+    canvasContext.font = "40px sans-serif";
 
     var framesPerSecond = 30;
     setInterval(updateAll, 1000/framesPerSecond);
@@ -87,8 +93,9 @@ const brickGame = () => {
       ballSpeedY *= -1;
     }
     if(ballY > canvas.height) { // bottom
-      ballReset();
-      brickReset();
+      // ballReset();
+      // brickReset();
+      gameState = 2;
     }
   }
 
@@ -113,7 +120,6 @@ const brickGame = () => {
       if(isBrickAtColRow( ballBrickCol,ballBrickRow )) {
         brickGrid[brickIndexUnderBall] = false;
         bricksLeft--;
-        // console.log(bricksLeft);
 
         var prevBallX = ballX - ballSpeedX;
         var prevBallY = ballY - ballSpeedY;
@@ -145,6 +151,8 @@ const brickGame = () => {
   } // end of ballBrickHandling func
 
   function ballPaddleHandling() {
+    console.log(bricksLeft);
+
     var paddleTopEdgeY = canvas.height-PADDLE_DIST_FROM_EDGE;
     var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
     var paddleLeftEdgeX = paddleX;
@@ -160,18 +168,31 @@ const brickGame = () => {
       var ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
       ballSpeedX = ballDistFromPaddleCenterX * 0.35;
 
-      if(bricksLeft == 0) {
-        brickReset();
-      } // out of bricks
     } // ball center inside paddle
+    if(bricksLeft === 0) {
+      gameState = 2;
+      console.log('bricksLeft = 0');
+    }
   } // end of ballPaddleHandling
 
   function moveAll() {
-    ballMove();
+    if (gameState === 1) {
+      ballMove();
 
-    ballBrickHandling();
+      ballBrickHandling();
 
-    ballPaddleHandling();
+      ballPaddleHandling();
+    } else if (gameState === 0) {
+      canvas.addEventListener('click', (e) => {
+        gameState = 1;
+      });
+    } else if (gameState === 2) {
+      canvas.addEventListener('click', (e) => {
+        brickReset();
+        ballReset();
+        gameState = 1;
+      });
+    }
   }
 
   function rowColToArrayIndex(col, row) {
@@ -196,13 +217,26 @@ const brickGame = () => {
 
   function drawAll() {
     colorRect(0,0, canvas.width,canvas.height, 'black'); // clear screen
+    if (gameState === 1) {
 
-    colorCircle(ballX,ballY, 10, 'white'); // draw ball
+      colorCircle(ballX,ballY, 10, 'white'); // draw ball
 
-    colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE,
-          PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
+      colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE,
+            PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
 
-    drawBricks();
+      drawBricks();
+    } else if (gameState === 0) {
+      colorText('Welcome to brick breaker!', 200, 220, 'white');
+      colorText('Click the screen to start playing', 150, 280, 'white');
+    } else if (gameState === 2) {
+      if (bricksLeft === 0) {
+        colorText('You win!', 320, 180, 'white');
+        colorText('Click the screen to play again', 170, 250, 'white');
+      } else {
+        colorText('You lose!', 320, 180, 'white');
+        colorText('Click the screen to try again', 170, 250, 'white');
+      }
+    }
   }
 
   function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {

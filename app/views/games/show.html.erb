@@ -1,14 +1,11 @@
 <div class="container my-4">
-  <h1 class="game-title"><%= @game.title %></h1>
-  <hr>
-  <div class="game-area">
-    <!-- <span class="game-id"><%= @game.title %></span> -->
+  <div class="game-area d-flex flex-column align-items-center">
+    <h1 class="game-title"><%= @game.title %></h1>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     <% content_for :page_js do  %>
-      <!-- <script><%# @game.code %></script> -->
     <% end %>
+    <%= link_to "All games", games_path, class: 'btn btn-secondary mt-3' %>
   </div>
-  <%= link_to "Back", games_path, class: 'btn btn-primary btn-sm' %>
   <hr>
   <div id="comments" class="my-5">
     <h2 class="mb-3">Comments</h2>

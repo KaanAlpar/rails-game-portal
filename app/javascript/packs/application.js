@@ -18,25 +18,18 @@
 import 'bootstrap';
 import { pongGame } from '../components/pong_game';
 import { brickGame } from '../components/brick_game';
+import { comingSoon } from '../components/coming_soon';
 
 const gameTitleElement = document.querySelector('.game-title')
 if (gameTitleElement) {
   const gameTitle = gameTitleElement.innerText;
   if (gameTitle) {
     if (gameTitle === 'Pong Game') {
-      console.log('Running pong game');
       pongGame();
     } else if (gameTitle === 'Brick Game') {
-      console.log('Running Brick Game');
-      brickGame();
-    } else if (gameTitle === 'Racing Game') {
-      console.log('Running Racing Game');
-      pongGame();
-    } else if (gameTitle === 'Adventure Game') {
-      console.log('Running Adventure Game');
       brickGame();
     } else {
-      brickGame();
+      comingSoon();
     }
   }
 }
