@@ -19,6 +19,10 @@ const pongGame = () => {
   var paddle1Thickness = 10;
   var paddle2Thickness = 10;
 
+  // 0 => Menu
+  // 1 => Game
+  var gameState = 0;
+
   function calculateMousePos(evt) {
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;

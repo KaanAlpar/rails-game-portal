@@ -1,13 +1,17 @@
-<div class="container">
+<div class="container my-4">
   <h1 class="text-center">All our games</h1>
   <div class="row">
     <% @games.order(:id).each do |game| %>
-      <div class="col-4">
+      <div class="col-4 mb-3">
         <%= link_to game_path(game), method: :get do %>
-        <div class="card-product m-2">
-          <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" %>
-          <div class="card-product-infos">
-            <h2><%= game.title %></h2>
+        <div class="card-trip">
+          <%= image_tag game.image_url, alt: "alttext" %>
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= game.title %></h2>
+              <p><%= game.description %></p>
+            </div>
+            <h2 class="card-trip-rating"><%= '*' * game.rating %></h2>
           </div>
         </div>
         <% end %>

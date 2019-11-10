@@ -18,7 +18,6 @@
 import 'bootstrap';
 import { pongGame } from '../components/pong_game';
 import { brickGame } from '../components/brick_game';
-// import { racingGame } from '../components/racing_game/js/Main';
 
 const gameTitleElement = document.querySelector('.game-title')
 if (gameTitleElement) {
@@ -35,6 +34,8 @@ if (gameTitleElement) {
       pongGame();
     } else if (gameTitle === 'Adventure Game') {
       console.log('Running Adventure Game');
+      brickGame();
+    } else {
       brickGame();
     }
   }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4">
   <h1 class="game-title"><%= @game.title %></h1>
   <hr>
   <div class="game-area">
@@ -8,6 +8,7 @@
       <!-- <script><%# @game.code %></script> -->
     <% end %>
   </div>
+  <%= link_to "Back", games_path, class: 'btn btn-primary btn-sm' %>
   <hr>
   <div id="comments" class="my-5">
     <h2 class="mb-3">Comments</h2>
@@ -18,12 +19,10 @@
     <% end %>
   </div>
   <div id="add-comment" class="my-5 border p-3">
-    <h3>Add comment</h3>
     <%= simple_form_for [@game, @comment] do |f| %>
-      <%= f.input :username %>
-      <%= f.input :content %>
-      <%= f.button :submit, class: 'btn btn-secondary' %>
+      <%= f.input :username, label: false, placeholder: 'Username' %>
+      <%= f.input :content, label: false, placeholder: 'Your comment goes here!' %>
+      <%= f.button :submit, class: 'btn btn-secondary', value: 'Add comment' %>
     <% end %>
   </div>
-  <%= link_to "Back", games_path, class: 'btn btn-primary' %>
 </div>
